@@ -6,111 +6,149 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendario de Partidos</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #000428, #004e92);
-            color: white;
-            font-family: 'Roboto', sans-serif;
-            overflow: hidden;
-        }
+     body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #000428, #004e92);
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    overflow: hidden;
+}
 
-        .container {
-            width: 100%;
-            max-width: 900px;
-            padding: 20px;
-            box-sizing: border-box;
-            text-align: center;
-        }
+.container {
+    width: 100%;
+    max-width: 900px;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
 
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #00d2ff;
-            text-transform: uppercase;
-        }
+/* Adaptación para dispositivos móviles */
+@media (max-width: 600px) {
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        overflow: visible;
+    }
 
-        .card-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            max-width: 100%;
-            position: relative;
-            min-height: 300px;
-        }
+    .card {
+        min-width: 100%;
+        max-width: 100%;
+        transform: scale(1);
+        position: relative;
+        margin: 0;
+    }
 
-        .card {
-            min-width: 300px;
-            max-width: 400px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            margin: 0 20px;
-            transform: scale(0.5);
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            opacity: 0;
-            position: absolute;
-        }
+    h1 {
+        font-size: 20px;
+    }
 
-        .card.active {
-            transform: scale(1);
-            opacity: 1;
-            position: relative;
-        }
+    .team-name {
+        font-size: 20px;
+    }
 
-        .team-name {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ffffff;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
+    .nav-button {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
 
-        .match-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+    .match-item {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
 
-        .match-item {
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            margin-bottom: 10px;
-            cursor: move;
-            user-select: none;
-        }
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #00d2ff;
+    text-transform: uppercase;
+}
 
-        .match-item:active {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    max-width: 100%;
+    position: relative;
+    min-height: 300px;
+}
 
-        .navigation {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
+.card {
+    min-width: 300px;
+    max-width: 400px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    margin: 0 20px;
+    transform: scale(0.5);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    position: absolute;
+}
 
-        .nav-button {
-            padding: 10px 20px;
-            background-color: #00d2ff;
-            color: #000;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
+.card.active {
+    transform: scale(1);
+    opacity: 1;
+    position: relative;
+}
 
-        .nav-button:disabled {
-            background-color: #555;
-            cursor: not-allowed;
-        }
+.team-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.match-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.match-item {
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: move;
+    user-select: none;
+}
+
+.match-item:active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.navigation {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.nav-button {
+    padding: 10px 20px;
+    background-color: #00d2ff;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.nav-button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
     </style>
 </head>
 
