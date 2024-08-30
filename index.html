@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario de Partidos</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #000428, #004e92);
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #00d2ff;
+            text-transform: uppercase;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            max-width: 100%;
+            position: relative;
+            min-height: 300px;
+        }
+
+        .card {
+            min-width: 300px;
+            max-width: 400px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            margin: 0 20px;
+            transform: scale(0.5);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            position: absolute;
+        }
+
+        .card.active {
+            transform: scale(1);
+            opacity: 1;
+            position: relative;
+        }
+
+        .team-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .match-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .match-item {
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            cursor: move;
+            user-select: none;
+        }
+
+        .match-item:active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .navigation {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .nav-button {
+            padding: 10px 20px;
+            background-color: #00d2ff;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .nav-button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Calendario de Partidos</h1>
+        <div class="card-container">
+            <div class="card active" data-team="Talleres">
+                <div class="team-name">Talleres</div>
+                <ul class="match-list">
+                    <li class="match-item">Talleres vs Cruz Azul</li>
+                    <li class="match-item">Talleres vs Sevilla</li>
+                    <li class="match-item">Talleres vs Red Bull</li>
+                    <li class="match-item">Talleres vs Poco Loco</li>
+                    <li class="match-item">Talleres vs Real Madrid</li>
+                    <li class="match-item">Talleres vs RD1</li>
+                    <li class="match-item">Talleres vs Olympic</li>
+                    <li class="match-item">Talleres vs Atlético</li>
+                    <li class="match-item">Talleres vs Quesoneta</li>
+                    <li class="match-item">Talleres vs Borussia Dortmund</li>
+                    <li class="match-item">Talleres vs Galaxy</li>
+                    <li class="match-item">Talleres vs Roma</li>
+                    <li class="match-item">Talleres vs Juventus</li>
+                </ul>
+            </div>
+            <div class="card " data-team="Cruz Azul">
+                <div class="team-name">Cruz Azul</div>
+                <ul class="match-list">
+                    <li class="match-item" draggable="true">Cruz Azul vs Talleres</li>
+                    <li class="match-item" draggable="true">Cruz Azul vs Sevilla</li>
+                    <li class="match-item" draggable="true">Cruz Azul vs Atlético</li>
+                    <li class="match-item" draggable="true">Cruz Azul vs Red Bull</li>
+                    <li class="match-item" draggable="true">Cruz Azul vs Real Madrid</li>
+                    <li class="match-item" draggable="true">Cruz Azul vs RD1</li>
+                    <li class="match-item" draggable="true">Cruz Azul vs Olympic</li>
+                    <li class="match-item" draggable="true">Cruz Azul vs Poco Loco</li>
+                    <li class="match-item" draggable="true">Cruz Azul vs Quesoneta</li>
+                    <li class="match-item" draggable="true">Cruz Azul vs Borussia Dortmund</li>
+                    <li class="match-item" draggable="true">Cruz Azul vs Galaxy</li>
+                    <li class="match-item" draggable="true">Cruz Azul vs Roma</li>
+                    <li class="match-item" draggable="true">Cruz Azul vs Juventus</li>
+                </ul>
+            </div>
+            <div class="card" data-team="Roma">
+                <div class="team-name">Roma</div>
+                <ul class="match-list">
+                    <li class="match-item">Roma vs Juventus</li>
+                    <li class="match-item">Roma vs Red Bull</li>
+                    <li class="match-item">Roma vs Poco Loco</li>
+                    <li class="match-item">Roma vs Real Madrid</li>
+                    <li class="match-item">Roma vs RD1</li>
+                    <li class="match-item">Roma vs Olympic</li>
+                    <li class="match-item">Roma vs Atlético</li>
+                    <li class="match-item">Roma vs Quesoneta</li>
+                    <li class="match-item">Roma vs Borussia Dortmund</li>
+                    <li class="match-item">Roma vs Galaxy</li>
+                    <li class="match-item">Roma vs Sevilla</li>
+                    <li class="match-item">Roma vs Talleres</li>
+                    <li class="match-item">Roma vs Cruz Azul</li>
+                </ul>
+            </div>
+            <div class="card" data-team="Juventus">
+                <div class="team-name">Juventus</div>
+                <ul class="match-list">
+                    <li class="match-item">Juventus vs Roma</li>
+                    <li class="match-item">Juventus vs Talleres</li>
+                    <li class="match-item">Juventus vs Red Bull</li>
+                    <li class="match-item">Juventus vs Poco Loco</li>
+                    <li class="match-item">Juventus vs Real Madrid</li>
+                    <li class="match-item">Juventus vs RD1</li>
+                    <li class="match-item">Juventus vs Olympic</li>
+                    <li class="match-item">Juventus vs Atlético</li>
+                    <li class="match-item">Juventus vs Quesoneta</li>
+                    <li class="match-item">Juventus vs Borussia Dortmund</li>
+                    <li class="match-item">Juventus vs Galaxy</li>
+                    <li class="match-item">Juventus vs Sevilla</li>
+                    <li class="match-item">Juventus vs Cruz Azul</li>
+                </ul>
+            </div>
+            <div class="card" data-team="Red Bull">
+                <div class="team-name">Red Bull</div>
+                <ul class="match-list">
+                    <li class="match-item">Red Bull vs Juventus</li>
+                    <li class="match-item">Red Bull vs Poco Loco</li>
+                    <li class="match-item">Red Bull vs Real Madrid</li>
+                    <li class="match-item">Red Bull vs RD1</li>
+                    <li class="match-item">Red Bull vs Olympic</li>
+                    <li class="match-item">Red Bull vs Atlético</li>
+                    <li class="match-item">Red Bull vs Quesoneta</li>
+                    <li class="match-item">Red Bull vs Borussia Dortmund</li>
+                    <li class="match-item">Red Bull vs Galaxy</li>
+                    <li class="match-item">Red Bull vs Sevilla</li>
+                    <li class="match-item">Red Bull vs Talleres</li>
+                    <li class="match-item">Red Bull vs Cruz Azul</li>
+                    <li class="match-item">Red Bull vs Roma</li>
+                </ul>
+            </div>
+            <div class="card" data-team="Poco Loco">
+                <div class="team-name">Poco Loco</div>
+                <ul class="match-list">
+                    <li class="match-item">Poco Loco vs Red Bull</li>
+                    <li class="match-item">Poco Loco vs Real Madrid</li>
+                    <li class="match-item">Poco Loco vs RD1</li>
+                    <li class="match-item">Poco Loco vs Olympic</li>
+                    <li class="match-item">Poco Loco vs Atlético</li>
+                    <li class="match-item">Poco Loco vs Quesoneta</li>
+                    <li class="match-item">Poco Loco vs Borussia Dortmund</li>
+                    <li class="match-item">Poco Loco vs Galaxy</li>
+                    <li class="match-item">Poco Loco vs Sevilla</li>
+                    <li class="match-item">Poco Loco vs Talleres</li>
+                    <li class="match-item">Poco Loco vs Cruz Azul</li>
+                    <li class="match-item">Poco Loco vs Roma</li>
+                    <li class="match-item">Poco Loco vs Juventus</li>
+                </ul>
+            </div>
+            <div class="card" data-team="Real Madrid">
+                <div class="team-name">Real Madrid</div>
+                <ul class="match-list">
+                    <li class="match-item">Real Madrid vs Poco Loco</li>
+                    <li class="match-item">Real Madrid vs RD1</li>
+                    <li class="match-item">Real Madrid vs Olympic</li>
+                    <li class="match-item">Real Madrid vs Atlético</li>
+                    <li class="match-item">Real Madrid vs Quesoneta</li>
+                    <li class="match-item">Real Madrid vs Borussia Dortmund</li>
+                    <li class="match-item">Real Madrid vs Galaxy</li>
+                    <li class="match-item">Real Madrid vs Sevilla</li>
+                    <li class="match-item">Real Madrid vs Talleres</li>
+                    <li class="match-item">Real Madrid vs Cruz Azul</li>
+                    <li class="match-item">Real Madrid vs Roma</li>
+                    <li class="match-item">Real Madrid vs Juventus</li>
+                    <li class="match-item">Real Madrid vs Red Bull</li>
+                </ul>
+            </div>
+            <div class="card" data-team="RD1">
+                <div class="team-name">RD1</div>
+                <ul class="match-list">
+                    <li class="match-item">RD1 vs Real Madrid</li>
+                    <li class="match-item">RD1 vs Olympic</li>
+                    <li class="match-item">RD1 vs Atlético</li>
+                    <li class="match-item">RD1 vs Quesoneta</li>
+                    <li class="match-item">RD1 vs Borussia Dortmund</li>
+                    <li class="match-item">RD1 vs Galaxy</li>
+                    <li class="match-item">RD1 vs Sevilla</li>
+                    <li class="match-item">RD1 vs Talleres</li>
+                    <li class="match-item">RD1 vs Cruz Azul</li>
+                    <li class="match-item">RD1 vs Roma</li>
+                    <li class="match-item">RD1 vs Juventus</li>
+                    <li class="match-item">RD1 vs Red Bull</li>
+                    <li class="match-item">RD1 vs Poco Loco</li>
+                </ul>
+            </div>
+            <div class="card" data-team="Olympic">
+                <div class="team-name">Olympic</div>
+                <ul class="match-list">
+                    <li class="match-item">Olympic vs RD1</li>
+                    <li class="match-item">Olympic vs Atlético</li>
+                    <li class="match-item">Olympic vs Quesoneta</li>
+                    <li class="match-item">Olympic vs Borussia Dortmund</li>
+                    <li class="match-item">Olympic vs Galaxy</li>
+                    <li class="match-item">Olympic vs Sevilla</li>
+                    <li class="match-item">Olympic vs Talleres</li>
+                    <li class="match-item">Olympic vs Cruz Azul</li>
+                    <li class="match-item">Olympic vs Roma</li>
+                    <li class="match-item">Olympic vs Juventus</li>
+                    <li class="match-item">Olympic vs Red Bull</li>
+                    <li class="match-item">Olympic vs Poco Loco</li>
+                    <li class="match-item">Olympic vs Real Madrid</li>
+                </ul>
+            </div>
+            <div class="card" data-team="Atlético">
+                <div class="team-name">Atlético</div>
+                <ul class="match-list">
+                    <li class="match-item">Atlético vs Olympic</li>
+                    <li class="match-item">Atlético vs Quesoneta</li>
+                    <li class="match-item">Atlético vs Borussia Dortmund</li>
+                    <li class="match-item">Atlético vs Galaxy</li>
+                    <li class="match-item">Atlético vs Sevilla</li>
+                    <li class="match-item">Atlético vs Talleres</li>
+                    <li class="match-item">Atlético vs Cruz Azul</li>
+                    <li class="match-item">Atlético vs Roma</li>
+                    <li class="match-item">Atlético vs Juventus</li>
+                    <li class="match-item">Atlético vs Red Bull</li>
+                    <li class="match-item">Atlético vs Poco Loco</li>
+                    <li class="match-item">Atlético vs Real Madrid</li>
+                    <li class="match-item">Atlético vs RD1</li>
+                </ul>
+            </div>
+            <div class="card" data-team="Quesoneta">
+                <div class="team-name">Quesoneta</div>
+                <ul class="match-list">
+                    <li class="match-item">Quesoneta vs Atlético</li>
+                    <li class="match-item">Quesoneta vs Borussia Dortmund</li>
+                    <li class="match-item">Quesoneta vs Galaxy</li>
+                    <li class="match-item">Quesoneta vs Sevilla</li>
+                    <li class="match-item">Quesoneta vs Talleres</li>
+                    <li class="match-item">Quesoneta vs Cruz Azul</li>
+                    <li class="match-item">Quesoneta vs Roma</li>
+                    <li class="match-item">Quesoneta vs Juventus</li>
+                    <li class="match-item">Quesoneta vs Red Bull</li>
+                    <li class="match-item">Quesoneta vs Poco Loco</li>
+                    <li class="match-item">Quesoneta vs Real Madrid</li>
+                    <li class="match-item">Quesoneta vs RD1</li>
+                    <li class="match-item">Quesoneta vs Olympic</li>
+                </ul>
+            </div>
+            <div class="card" data-team="Borussia Dortmund">
+                <div class="team-name">Borussia Dortmund</div>
+                <ul class="match-list">
+                    <li class="match-item">Borussia Dortmund vs Quesoneta</li>
+                    <li class="match-item">Borussia Dortmund vs Galaxy</li>
+                    <li class="match-item">Borussia Dortmund vs Sevilla</li>
+                    <li class="match-item">Borussia Dortmund vs Talleres</li>
+                    <li class="match-item">Borussia Dortmund vs Cruz Azul</li>
+                    <li class="match-item">Borussia Dortmund vs Roma</li>
+                    <li class="match-item">Borussia Dortmund vs Juventus</li>
+                    <li class="match-item">Borussia Dortmund vs Red Bull</li>
+                    <li class="match-item">Borussia Dortmund vs Poco Loco</li>
+                    <li class="match-item">Borussia Dortmund vs Real Madrid</li>
+                    <li class="match-item">Borussia Dortmund vs RD1</li>
+                    <li class="match-item">Borussia Dortmund vs Olympic</li>
+                    <li class="match-item">Borussia Dortmund vs Atlético</li>
+                </ul>
+            </div>
+            <div class="card" data-team="Galaxy">
+                <div class="team-name">Galaxy</div>
+                <ul class="match-list">
+                    <li class="match-item">Galaxy vs Borussia Dortmund</li>
+                    <li class="match-item">Galaxy vs Sevilla</li>
+                    <li class="match-item">Galaxy vs Talleres</li>
+                    <li class="match-item">Galaxy vs Cruz Azul</li>
+                    <li class="match-item">Galaxy vs Roma</li>
+                    <li class="match-item">Galaxy vs Juventus</li>
+                    <li class="match-item">Galaxy vs Red Bull</li>
+                    <li class="match-item">Galaxy vs Poco Loco</li>
+                    <li class="match-item">Galaxy vs Real Madrid</li>
+                    <li class="match-item">Galaxy vs RD1</li>
+                    <li class="match-item">Galaxy vs Olympic</li>
+                    <li class="match-item">Galaxy vs Atlético</li>
+                    <li class="match-item">Galaxy vs Quesoneta</li>
+                </ul>
+            </div>
+            <div class="card" data-team="Sevilla">
+                <div class="team-name">Sevilla</div>
+                <ul class="match-list">
+                    <li class="match-item">Sevilla vs Galaxy</li>
+                    <li class="match-item">Sevilla vs Talleres</li>
+                    <li class="match-item">Sevilla vs Cruz Azul</li>
+                    <li class="match-item">Sevilla vs Roma</li>
+                    <li class="match-item">Sevilla vs Juventus</li>
+                    <li class="match-item">Sevilla vs Red Bull</li>
+                    <li class="match-item">Sevilla vs Poco Loco</li>
+                    <li class="match-item">Sevilla vs Real Madrid</li>
+                    <li class="match-item">Sevilla vs RD1</li>
+                    <li class="match-item">Sevilla vs Olympic</li>
+                    <li class="match-item">Sevilla vs Atlético</li>
+                    <li class="match-item">Sevilla vs Quesoneta</li>
+                    <li class="match-item">Sevilla vs Borussia Dortmund</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-button" id="prevBtn" disabled>Anterior</button>
+            <button class="nav-button" id="nextBtn">Siguiente</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let currentCardIndex = 0;
+            const cards = document.querySelectorAll('.card');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            function updateCardVisibility() {
+                cards.forEach((card, index) => {
+                    card.classList.toggle('active', index === currentCardIndex);
+                });
+
+                prevBtn.disabled = currentCardIndex === 0;
+                nextBtn.disabled = currentCardIndex === cards.length - 1;
+            }
+
+            nextBtn.addEventListener('click', function () {
+                if (currentCardIndex < cards.length - 1) {
+                    currentCardIndex++;
+                    updateCardVisibility();
+                }
+            });
+
+            prevBtn.addEventListener('click', function () {
+                if (currentCardIndex > 0) {
+                    currentCardIndex--;
+                    updateCardVisibility();
+                }
+            });
+
+            // Drag and drop functionality
+            const matchLists = document.querySelectorAll('.match-list');
+
+            matchLists.forEach(list => {
+                list.addEventListener('dragstart', function (e) {
+                    e.target.classList.add('dragging');
+                });
+
+                list.addEventListener('dragend', function (e) {
+                    e.target.classList.remove('dragging');
+                });
+
+                list.addEventListener('dragover', function (e) {
+                    e.preventDefault();
+                    const dragging = document.querySelector('.dragging');
+                    const afterElement = getDragAfterElement(list, e.clientY);
+                    if (afterElement == null) {
+                        list.appendChild(dragging);
+                    } else {
+                        list.insertBefore(dragging, afterElement);
+                    }
+                });
+            });
+
+            function getDragAfterElement(list, y) {
+                const draggableElements = [...list.querySelectorAll('.match-item:not(.dragging)')];
+
+                return draggableElements.reduce((closest, child) => {
+                    const box = child.getBoundingClientRect();
+                    const offset = y - box.top - box.height / 2;
+                    if (offset < 0 && offset > closest.offset) {
+                        return { offset: offset, element: child };
+                    } else {
+                        return closest;
+                    }
+                }, { offset: Number.NEGATIVE_INFINITY }).element;
+            }
+        });
+    </script>
+</body>
+
+</html>
