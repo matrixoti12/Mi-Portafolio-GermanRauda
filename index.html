@@ -1,489 +1,449 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendario de Partidos</title>
+    <title>Reglamento Torneo Fútbol Sala Guazapa</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #000428, #004e92);
-            color: white;
-            font-family: 'Roboto', sans-serif;
-            overflow: hidden;
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --accent: #f39c12;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --success: #27ae60;
         }
-
-        .container {
-            width: 100%;
-            max-width: 900px;
-            padding: 20px;
+        
+        * {
             box-sizing: border-box;
-            text-align: center;
-        }
-
-        @media (max-width: 600px) {
-            .card-container {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-                overflow: visible;
-            }
-
-            .card {
-                min-width: 100%;
-                max-width: 100%;
-                transform: scale(1);
-                position: relative;
-                margin: 0;
-                box-shadow: none;
-            }
-
-            h1 {
-                font-size: 20px;
-            }
-
-            .team-name {
-                font-size: 20px;
-            }
-
-            .nav-button {
-                padding: 8px 15px;
-                font-size: 14px;
-            }
-
-            .match-item {
-                padding: 8px;
-                font-size: 14px;
-            }
-        }
-
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #00d2ff;
-            text-transform: uppercase;
-        }
-
-        .card-container {
-            display: flex;
-            flex-direction: row;
-            overflow: hidden;
-            max-width: 100%;
-            position: relative;
-            min-height: 300px;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .card {
-            min-width: 300px;
-            max-width: 400px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            transform: scale(0.5);
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            opacity: 0;
-            position: absolute;
-        }
-
-        .card.active {
-            transform: scale(1);
-            opacity: 1;
-            position: relative;
-        }
-
-        .team-name {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ffffff;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-
-        .match-list {
-            list-style: none;
-            padding: 0;
             margin: 0;
+            padding: 0;
         }
-
-        .match-item {
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            margin-bottom: 10px;
-            cursor: move;
-            user-select: none;
-            transition: background-color 0.2s ease;
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: var(--primary);
+            line-height: 1.6;
         }
-
-        .match-item:active {
-            background-color: rgba(255, 255, 255, 0.2);
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
         }
-
-        .navigation {
-            margin-top: 20px;
+        
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: var(--accent);
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .rules-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .rule-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-left: 5px solid var(--accent);
+        }
+        
+        .rule-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+        
+        .rule-card.severe {
+            border-left-color: var(--secondary);
+        }
+        
+        .rule-card.important {
+            border-left-color: var(--success);
+        }
+        
+        .rule-number {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
             display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 10px;
+            font-weight: bold;
+            font-size: 0.9rem;
         }
-
-        .nav-button {
-            padding: 10px 20px;
-            background-color: #00d2ff;
-            color: #000;
-            border: none;
-            border-radius: 5px;
+        
+        .rule-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary);
+            font-weight: 600;
+            padding-right: 30px;
+        }
+        
+        .rule-content {
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        .penalty {
+            display: inline-block;
+            margin-top: 0.8rem;
+            padding: 0.3rem 0.6rem;
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--secondary);
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin: 2rem 0 1.5rem;
+            color: var(--primary);
+            position: relative;
+            padding-left: 1rem;
+        }
+        
+        .section-title::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--dark);
+            color: white;
+            margin-top: 3rem;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .highlight-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .highlight-title svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        .tab-container {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab {
+            padding: 0.8rem 1.5rem;
             cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
-
-        .nav-button:disabled {
-            background-color: #555;
-            cursor: not-allowed;
+        
+        .tab.active {
+            border-bottom-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .rules-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
-
 <body>
+    <div class="header">
+        <h1>Reglamento Oficial</h1>
+        <p>Torneo de Fútbol Sala Guazapa - Normativas y Sanciones</p>
+    </div>
+    
     <div class="container">
-        <h1>Calendario de Partidos</h1>
-        <div class="card-container">
-            <div class="card active" data-team="Talleres">
-                <div class="team-name">Talleres</div>
-                <ul class="match-list">
-                    <li class="match-item">Talleres vs Cruz Azul</li>
-                    <li class="match-item">Talleres vs Sevilla</li>
-                    <li class="match-item">Talleres vs Red Bull</li>
-                    <li class="match-item">Talleres vs Poco Loco</li>
-                    <li class="match-item">Talleres vs Real Madrid</li>
-                    <li class="match-item">Talleres vs RD1</li>
-                    <li class="match-item">Talleres vs Olympic</li>
-                    <li class="match-item">Talleres vs Atlético</li>
-                    <li class="match-item">Talleres vs Quesoneta</li>
-                    <li class="match-item">Talleres vs Borussia Dortmund</li>
-                    <li class="match-item">Talleres vs Galaxy</li>
-                    <li class="match-item">Talleres vs Roma</li>
-                    <li class="match-item">Talleres vs Juventus</li>
-                </ul>
-            </div>
-            <div class="card " data-team="Cruz Azul">
-                <div class="team-name">Cruz Azul</div>
-                <ul class="match-list">
-                    <li class="match-item" draggable="true">Cruz Azul vs Talleres</li>
-                    <li class="match-item" draggable="true">Cruz Azul vs Sevilla</li>
-                    <li class="match-item" draggable="true">Cruz Azul vs Atlético</li>
-                    <li class="match-item" draggable="true">Cruz Azul vs Red Bull</li>
-                    <li class="match-item" draggable="true">Cruz Azul vs Real Madrid</li>
-                    <li class="match-item" draggable="true">Cruz Azul vs RD1</li>
-                    <li class="match-item" draggable="true">Cruz Azul vs Olympic</li>
-                    <li class="match-item" draggable="true">Cruz Azul vs Poco Loco</li>
-                    <li class="match-item" draggable="true">Cruz Azul vs Quesoneta</li>
-                    <li class="match-item" draggable="true">Cruz Azul vs Borussia Dortmund</li>
-                    <li class="match-item" draggable="true">Cruz Azul vs Galaxy</li>
-                    <li class="match-item" draggable="true">Cruz Azul vs Roma</li>
-                    <li class="match-item" draggable="true">Cruz Azul vs Juventus</li>
-                </ul>
-            </div>
-            <div class="card" data-team="Roma">
-                <div class="team-name">Roma</div>
-                <ul class="match-list">
-                    <li class="match-item">Roma vs Juventus</li>
-                    <li class="match-item">Roma vs Red Bull</li>
-                    <li class="match-item">Roma vs Poco Loco</li>
-                    <li class="match-item">Roma vs Real Madrid</li>
-                    <li class="match-item">Roma vs RD1</li>
-                    <li class="match-item">Roma vs Olympic</li>
-                    <li class="match-item">Roma vs Atlético</li>
-                    <li class="match-item">Roma vs Quesoneta</li>
-                    <li class="match-item">Roma vs Borussia Dortmund</li>
-                    <li class="match-item">Roma vs Galaxy</li>
-                    <li class="match-item">Roma vs Sevilla</li>
-                    <li class="match-item">Roma vs Talleres</li>
-                    <li class="match-item">Roma vs Cruz Azul</li>
-                </ul>
-            </div>
-            <div class="card" data-team="Juventus">
-                <div class="team-name">Juventus</div>
-                <ul class="match-list">
-                    <li class="match-item">Juventus vs Roma</li>
-                    <li class="match-item">Juventus vs Talleres</li>
-                    <li class="match-item">Juventus vs Red Bull</li>
-                    <li class="match-item">Juventus vs Poco Loco</li>
-                    <li class="match-item">Juventus vs Real Madrid</li>
-                    <li class="match-item">Juventus vs RD1</li>
-                    <li class="match-item">Juventus vs Olympic</li>
-                    <li class="match-item">Juventus vs Atlético</li>
-                    <li class="match-item">Juventus vs Quesoneta</li>
-                    <li class="match-item">Juventus vs Borussia Dortmund</li>
-                    <li class="match-item">Juventus vs Galaxy</li>
-                    <li class="match-item">Juventus vs Sevilla</li>
-                    <li class="match-item">Juventus vs Cruz Azul</li>
-                </ul>
-            </div>
-            <div class="card" data-team="Red Bull">
-                <div class="team-name">Red Bull</div>
-                <ul class="match-list">
-                    <li class="match-item">Red Bull vs Juventus</li>
-                    <li class="match-item">Red Bull vs Poco Loco</li>
-                    <li class="match-item">Red Bull vs Real Madrid</li>
-                    <li class="match-item">Red Bull vs RD1</li>
-                    <li class="match-item">Red Bull vs Olympic</li>
-                    <li class="match-item">Red Bull vs Atlético</li>
-                    <li class="match-item">Red Bull vs Quesoneta</li>
-                    <li class="match-item">Red Bull vs Borussia Dortmund</li>
-                    <li class="match-item">Red Bull vs Galaxy</li>
-                    <li class="match-item">Red Bull vs Sevilla</li>
-                    <li class="match-item">Red Bull vs Talleres</li>
-                    <li class="match-item">Red Bull vs Cruz Azul</li>
-                    <li class="match-item">Red Bull vs Roma</li>
-                </ul>
-            </div>
-            <div class="card" data-team="Poco Loco">
-                <div class="team-name">Poco Loco</div>
-                <ul class="match-list">
-                    <li class="match-item">Poco Loco vs Red Bull</li>
-                    <li class="match-item">Poco Loco vs Real Madrid</li>
-                    <li class="match-item">Poco Loco vs RD1</li>
-                    <li class="match-item">Poco Loco vs Olympic</li>
-                    <li class="match-item">Poco Loco vs Atlético</li>
-                    <li class="match-item">Poco Loco vs Quesoneta</li>
-                    <li class="match-item">Poco Loco vs Borussia Dortmund</li>
-                    <li class="match-item">Poco Loco vs Galaxy</li>
-                    <li class="match-item">Poco Loco vs Sevilla</li>
-                    <li class="match-item">Poco Loco vs Talleres</li>
-                    <li class="match-item">Poco Loco vs Cruz Azul</li>
-                    <li class="match-item">Poco Loco vs Roma</li>
-                    <li class="match-item">Poco Loco vs Juventus</li>
-                </ul>
-            </div>
-            <div class="card" data-team="Real Madrid">
-                <div class="team-name">Real Madrid</div>
-                <ul class="match-list">
-                    <li class="match-item">Real Madrid vs Poco Loco</li>
-                    <li class="match-item">Real Madrid vs RD1</li>
-                    <li class="match-item">Real Madrid vs Olympic</li>
-                    <li class="match-item">Real Madrid vs Atlético</li>
-                    <li class="match-item">Real Madrid vs Quesoneta</li>
-                    <li class="match-item">Real Madrid vs Borussia Dortmund</li>
-                    <li class="match-item">Real Madrid vs Galaxy</li>
-                    <li class="match-item">Real Madrid vs Sevilla</li>
-                    <li class="match-item">Real Madrid vs Talleres</li>
-                    <li class="match-item">Real Madrid vs Cruz Azul</li>
-                    <li class="match-item">Real Madrid vs Roma</li>
-                    <li class="match-item">Real Madrid vs Juventus</li>
-                    <li class="match-item">Real Madrid vs Red Bull</li>
-                </ul>
-            </div>
-            <div class="card" data-team="RD1">
-                <div class="team-name">RD1</div>
-                <ul class="match-list">
-                    <li class="match-item">RD1 vs Real Madrid</li>
-                    <li class="match-item">RD1 vs Olympic</li>
-                    <li class="match-item">RD1 vs Atlético</li>
-                    <li class="match-item">RD1 vs Quesoneta</li>
-                    <li class="match-item">RD1 vs Borussia Dortmund</li>
-                    <li class="match-item">RD1 vs Galaxy</li>
-                    <li class="match-item">RD1 vs Sevilla</li>
-                    <li class="match-item">RD1 vs Talleres</li>
-                    <li class="match-item">RD1 vs Cruz Azul</li>
-                    <li class="match-item">RD1 vs Roma</li>
-                    <li class="match-item">RD1 vs Juventus</li>
-                    <li class="match-item">RD1 vs Red Bull</li>
-                    <li class="match-item">RD1 vs Poco Loco</li>
-                </ul>
-            </div>
-            <div class="card" data-team="Olympic">
-                <div class="team-name">Olympic</div>
-                <ul class="match-list">
-                    <li class="match-item">Olympic vs RD1</li>
-                    <li class="match-item">Olympic vs Atlético</li>
-                    <li class="match-item">Olympic vs Quesoneta</li>
-                    <li class="match-item">Olympic vs Borussia Dortmund</li>
-                    <li class="match-item">Olympic vs Galaxy</li>
-                    <li class="match-item">Olympic vs Sevilla</li>
-                    <li class="match-item">Olympic vs Talleres</li>
-                    <li class="match-item">Olympic vs Cruz Azul</li>
-                    <li class="match-item">Olympic vs Roma</li>
-                    <li class="match-item">Olympic vs Juventus</li>
-                    <li class="match-item">Olympic vs Red Bull</li>
-                    <li class="match-item">Olympic vs Poco Loco</li>
-                    <li class="match-item">Olympic vs Real Madrid</li>
-                </ul>
-            </div>
-            <div class="card" data-team="Atlético">
-                <div class="team-name">Atlético</div>
-                <ul class="match-list">
-                    <li class="match-item">Atlético vs Olympic</li>
-                    <li class="match-item">Atlético vs Quesoneta</li>
-                    <li class="match-item">Atlético vs Borussia Dortmund</li>
-                    <li class="match-item">Atlético vs Galaxy</li>
-                    <li class="match-item">Atlético vs Sevilla</li>
-                    <li class="match-item">Atlético vs Talleres</li>
-                    <li class="match-item">Atlético vs Cruz Azul</li>
-                    <li class="match-item">Atlético vs Roma</li>
-                    <li class="match-item">Atlético vs Juventus</li>
-                    <li class="match-item">Atlético vs Red Bull</li>
-                    <li class="match-item">Atlético vs Poco Loco</li>
-                    <li class="match-item">Atlético vs Real Madrid</li>
-                    <li class="match-item">Atlético vs RD1</li>
-                </ul>
-            </div>
-            <div class="card" data-team="Quesoneta">
-                <div class="team-name">Quesoneta</div>
-                <ul class="match-list">
-                    <li class="match-item">Quesoneta vs Atlético</li>
-                    <li class="match-item">Quesoneta vs Borussia Dortmund</li>
-                    <li class="match-item">Quesoneta vs Galaxy</li>
-                    <li class="match-item">Quesoneta vs Sevilla</li>
-                    <li class="match-item">Quesoneta vs Talleres</li>
-                    <li class="match-item">Quesoneta vs Cruz Azul</li>
-                    <li class="match-item">Quesoneta vs Roma</li>
-                    <li class="match-item">Quesoneta vs Juventus</li>
-                    <li class="match-item">Quesoneta vs Red Bull</li>
-                    <li class="match-item">Quesoneta vs Poco Loco</li>
-                    <li class="match-item">Quesoneta vs Real Madrid</li>
-                    <li class="match-item">Quesoneta vs RD1</li>
-                    <li class="match-item">Quesoneta vs Olympic</li>
-                </ul>
-            </div>
-            <div class="card" data-team="Borussia Dortmund">
-                <div class="team-name">Borussia Dortmund</div>
-                <ul class="match-list">
-                    <li class="match-item">Borussia Dortmund vs Quesoneta</li>
-                    <li class="match-item">Borussia Dortmund vs Galaxy</li>
-                    <li class="match-item">Borussia Dortmund vs Sevilla</li>
-                    <li class="match-item">Borussia Dortmund vs Talleres</li>
-                    <li class="match-item">Borussia Dortmund vs Cruz Azul</li>
-                    <li class="match-item">Borussia Dortmund vs Roma</li>
-                    <li class="match-item">Borussia Dortmund vs Juventus</li>
-                    <li class="match-item">Borussia Dortmund vs Red Bull</li>
-                    <li class="match-item">Borussia Dortmund vs Poco Loco</li>
-                    <li class="match-item">Borussia Dortmund vs Real Madrid</li>
-                    <li class="match-item">Borussia Dortmund vs RD1</li>
-                    <li class="match-item">Borussia Dortmund vs Olympic</li>
-                    <li class="match-item">Borussia Dortmund vs Atlético</li>
-                </ul>
-            </div>
-            <div class="card" data-team="Galaxy">
-                <div class="team-name">Galaxy</div>
-                <ul class="match-list">
-                    <li class="match-item">Galaxy vs Borussia Dortmund</li>
-                    <li class="match-item">Galaxy vs Sevilla</li>
-                    <li class="match-item">Galaxy vs Talleres</li>
-                    <li class="match-item">Galaxy vs Cruz Azul</li>
-                    <li class="match-item">Galaxy vs Roma</li>
-                    <li class="match-item">Galaxy vs Juventus</li>
-                    <li class="match-item">Galaxy vs Red Bull</li>
-                    <li class="match-item">Galaxy vs Poco Loco</li>
-                    <li class="match-item">Galaxy vs Real Madrid</li>
-                    <li class="match-item">Galaxy vs RD1</li>
-                    <li class="match-item">Galaxy vs Olympic</li>
-                    <li class="match-item">Galaxy vs Atlético</li>
-                    <li class="match-item">Galaxy vs Quesoneta</li>
-                </ul>
-            </div>
-            <div class="card" data-team="Sevilla">
-                <div class="team-name">Sevilla</div>
-                <ul class="match-list">
-                    <li class="match-item">Sevilla vs Galaxy</li>
-                    <li class="match-item">Sevilla vs Talleres</li>
-                    <li class="match-item">Sevilla vs Cruz Azul</li>
-                    <li class="match-item">Sevilla vs Roma</li>
-                    <li class="match-item">Sevilla vs Juventus</li>
-                    <li class="match-item">Sevilla vs Red Bull</li>
-                    <li class="match-item">Sevilla vs Poco Loco</li>
-                    <li class="match-item">Sevilla vs Real Madrid</li>
-                    <li class="match-item">Sevilla vs RD1</li>
-                    <li class="match-item">Sevilla vs Olympic</li>
-                    <li class="match-item">Sevilla vs Atlético</li>
-                    <li class="match-item">Sevilla vs Quesoneta</li>
-                    <li class="match-item">Sevilla vs Borussia Dortmund</li>
-                </ul>
+        <div class="highlight-box">
+            <h2 class="highlight-title">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1.06 13.54L7.4 12l1.41-1.41 2.12 2.12 4.24-4.24 1.41 1.41-5.64 5.66z"/>
+                </svg>
+                Reglas más importantes
+            </h2>
+            <p>Estas son las normas clave que todos los participantes deben conocer. El incumplimiento puede resultar en sanciones graves, incluyendo expulsión del torneo.</p>
+        </div>
+        
+        <div class="tab-container">
+            <div class="tab active" onclick="openTab(event, 'sanciones')">Sanciones</div>
+            <div class="tab" onclick="openTab(event, 'partidos')">Partidos</div>
+            <div class="tab" onclick="openTab(event, 'general')">General</div>
+        </div>
+        
+        <div id="sanciones" class="tab-content active">
+            <h2 class="section-title">Sanciones y Conducta</h2>
+            <div class="rules-container">
+                <div class="rule-card severe">
+                    <div class="rule-number">1</div>
+                    <h3 class="rule-title">Agresión verbal al árbitro</h3>
+                    <p class="rule-content">Tarjeta ROJA DIRECTA y castigo de 5 juegos. Se puede cancelar con $3.00 y cumplir 2 juegos de castigo.</p>
+                    <span class="penalty">Sanción grave</span>
+                </div>
+                
+                <div class="rule-card severe">
+                    <div class="rule-number">2</div>
+                    <h3 class="rule-title">Agresión física al árbitro</h3>
+                    <p class="rule-content">Expulsión de por vida del torneo y posible penalización legal. Existe carta de protección al árbitro.</p>
+                    <span class="penalty">Expulsión definitiva</span>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-number">5</div>
+                    <h3 class="rule-title">Agresión física entre jugadores</h3>
+                    <p class="rule-content">Tarjeta roja directa. La sanción varía según gravedad: de 5 partidos hasta 1 año de castigo.</p>
+                    <span class="penalty">5 partidos mínimo</span>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-number">8</div>
+                    <h3 class="rule-title">Escupir a cualquier persona</h3>
+                    <p class="rule-content">Tarjeta roja directa y 6 meses de castigo. Si es al árbitro, misma sanción.</p>
+                    <span class="penalty">6 meses</span>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-number">15</div>
+                    <h3 class="rule-title">Malas palabras o gestos obscenos</h3>
+                    <p class="rule-content">A compañero: tarjeta amarilla. A rival: tarjeta roja directa.</p>
+                    <span class="penalty">Amarilla/Roja</span>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-number">11</div>
+                    <h3 class="rule-title">Incitar violencia durante castigo</h3>
+                    <p class="rule-content">Puede recibir castigo mayor al que ya está cumpliendo.</p>
+                    <span class="penalty">Sanción adicional</span>
+                </div>
             </div>
         </div>
-        <div class="navigation">
-            <button class="nav-button" id="prevBtn" disabled>Anterior</button>
-            <button class="nav-button" id="nextBtn">Siguiente</button>
+        
+        <div id="partidos" class="tab-content">
+            <h2 class="section-title">Reglas de Partidos</h2>
+            <div class="rules-container">
+                <div class="rule-card important">
+                    <div class="rule-number">4</div>
+                    <h3 class="rule-title">Pago al árbitro</h3>
+                    <p class="rule-content">Debe realizarse antes de iniciar el juego. Si no se paga, el equipo infractor pierde los puntos.</p>
+                    <span class="penalty">Pérdida de puntos</span>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-number">18</div>
+                    <h3 class="rule-title">Jugadores mínimos</h3>
+                    <p class="rule-content">Un equipo puede jugar con mínimo 3 jugadores (incluyendo portero).</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-number">22</div>
+                    <h3 class="rule-title">Tolerancia</h3>
+                    <p class="rule-content">5 minutos después del pitido inicial. Si no se presenta el equipo, pierde los puntos.</p>
+                    <span class="penalty">Pérdida de puntos</span>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-number">23</div>
+                    <h3 class="rule-title">Diferencia de goles</h3>
+                    <p class="rule-content">El árbitro puede finalizar el juego si hay diferencia de 10 goles.</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-number">36</div>
+                    <h3 class="rule-title">Duración del partido</h3>
+                    <p class="rule-content">20 minutos por tiempo y 5 minutos de descanso.</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-number">42</div>
+                    <h3 class="rule-title">Portero</h3>
+                    <p class="rule-content">Solo puede tener el balón en la mano 5 segundos si no es saque.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="general" class="tab-content">
+            <h2 class="section-title">Reglas Generales</h2>
+            <div class="rules-container">
+                <div class="rule-card">
+                    <div class="rule-number">12</div>
+                    <h3 class="rule-title">Jugar bajo efectos del alcohol</h3>
+                    <p class="rule-content">Prohibido. Sanción: expulsión y 2 juegos de castigo.</p>
+                    <span class="penalty">2 juegos</span>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-number">16-17</div>
+                    <h3 class="rule-title">Indumentaria</h3>
+                    <p class="rule-content">Prohibido gritos, cadenas, anillos, pulseras. Uñas largas deben estar cubiertas.</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-number">19</div>
+                    <h3 class="rule-title">Uniforme del portero</h3>
+                    <p class="rule-content">Puede usar cualquier color que no coincida con los equipos.</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-number">21</div>
+                    <h3 class="rule-title">Uniforme de equipo</h3>
+                    <p class="rule-content">Deben jugar con camisa y calzoneta. Colores similares permitidos.</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-number">28</div>
+                    <h3 class="rule-title">Pagos pendientes</h3>
+                    <p class="rule-content">Equipos con deudas no podrán participar en fases finales.</p>
+                    <span class="penalty">Descalificación</span>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-number">30</div>
+                    <h3 class="rule-title">Jugadores en octavos</h3>
+                    <p class="rule-content">Deben haber jugado mínimo 2 partidos y estar inscritos.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="highlight-box pulse">
+            <h2 class="highlight-title">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+                </svg>
+                ¿Sabías que...?
+            </h2>
+            <p>El árbitro está obligado a anotar todas las faltas. Después de 6 faltas contra un equipo, se concede un penal a favor (Regla 25).</p>
         </div>
     </div>
-
+    
+    <div class="footer">
+        <p>© 2023 Torneo de Fútbol Sala Guazapa - Todos los derechos reservados</p>
+        <p>Consulta el reglamento completo con los organizadores del torneo</p>
+    </div>
+    
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            let currentCardIndex = 0;
-            const cards = document.querySelectorAll('.card');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-
-            function updateCardVisibility() {
-                cards.forEach((card, index) => {
-                    card.classList.toggle('active', index === currentCardIndex);
-                });
-
-                prevBtn.disabled = currentCardIndex === 0;
-                nextBtn.disabled = currentCardIndex === cards.length - 1;
+        function openTab(evt, tabName) {
+            // Oculta todos los contenidos de pestaña
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
             }
-
-            nextBtn.addEventListener('click', function () {
-                if (currentCardIndex < cards.length - 1) {
-                    currentCardIndex++;
-                    updateCardVisibility();
-                }
-            });
-
-            prevBtn.addEventListener('click', function () {
-                if (currentCardIndex > 0) {
-                    currentCardIndex--;
-                    updateCardVisibility();
-                }
-            });
-
-            // Drag and drop functionality
-            const matchLists = document.querySelectorAll('.match-list');
-
-            matchLists.forEach(list => {
-                list.addEventListener('dragstart', function (e) {
-                    e.target.classList.add('dragging');
-                });
-
-                list.addEventListener('dragend', function (e) {
-                    e.target.classList.remove('dragging');
-                });
-
-                list.addEventListener('dragover', function (e) {
-                    e.preventDefault();
-                    const dragging = document.querySelector('.dragging');
-                    const afterElement = getDragAfterElement(list, e.clientY);
-                    if (afterElement == null) {
-                        list.appendChild(dragging);
-                    } else {
-                        list.insertBefore(dragging, afterElement);
-                    }
-                });
-            });
-
-            function getDragAfterElement(list, y) {
-                const draggableElements = [...list.querySelectorAll('.match-item:not(.dragging)')];
-
-                return draggableElements.reduce((closest, child) => {
-                    const box = child.getBoundingClientRect();
-                    const offset = y - box.top - box.height / 2;
-                    if (offset < 0 && offset > closest.offset) {
-                        return { offset: offset, element: child };
-                    } else {
-                        return closest;
-                    }
-                }, { offset: Number.NEGATIVE_INFINITY }).element;
+            
+            // Desactiva todas las pestañas
+            const tabs = document.getElementsByClassName("tab");
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
             }
+            
+            // Activa la pestaña y contenido seleccionado
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        
+        // Efecto de aparición para las tarjetas
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.rule-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
         });
     </script>
 </body>
-
 </html>
